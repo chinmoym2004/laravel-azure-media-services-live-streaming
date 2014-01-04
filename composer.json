@@ -1,0 +1,38 @@
+{
+    "name": "unm/laravel4-azure",
+    "description": "A laravel 4.1 service provider package that wraps the Windows Azure PHP SDK",
+    "keywords"   : ["microsoft", "azure","windows azure","php","laravel"],
+    "homepage"   : "https://github.com/undernewmanagement/laravel4-azure",
+    "authors": [
+        {
+            "name"     : "Under New Management",
+            "homepage" : "http://github.com/undernewmanagement",
+            "role"     : "developer"
+        }
+    ],
+    "support" : [
+        {
+            "issues" : "https://github.com/undernewmanagement/laravel4-azure/issues",
+        }
+    ],
+    "require": {
+        "php": ">=5.3.0",
+        "illuminate/support": "4.1.*",
+        "microsoft/windowsazure": "*"
+    },
+    "repositories": [
+        {
+            "type": "pear",
+            "url": "http://pear.php.net"
+        }
+    ],
+    "autoload": {
+        "classmap": [
+            "src/migrations"
+        ],
+        "psr-0": {
+            "Unm\\Laravel\\Azure": "src/"
+        }
+    },
+    "minimum-stability": "dev"
+}
