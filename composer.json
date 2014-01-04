@@ -3,6 +3,7 @@
     "description": "A laravel 4.1 service provider package that wraps the Windows Azure PHP SDK",
     "keywords"   : ["microsoft", "azure","windows azure","php","laravel"],
     "homepage"   : "https://github.com/undernewmanagement/laravel4-azure",
+    "license"    : "MIT",
     "authors": [
         {
             "name"     : "Under New Management",
