@@ -11,11 +11,9 @@
             "role"     : "developer"
         }
     ],
-    "support" : [
-        {
-            "issues" : "https://github.com/undernewmanagement/laravel4-azure/issues",
-        }
-    ],
+    "support" : {
+        "issues" : "https://github.com/undernewmanagement/laravel4-azure/issues"
+    },
     "require": {
         "php": ">=5.3.0",
         "illuminate/support": "4.1.*",
