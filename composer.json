@@ -32,7 +32,7 @@
     ],
     "autoload": {
         "classmap": [
-            "src/migrations"
+            "src/"
         ],
         "psr-0": {
             "Unm\\Laravel\\Azure": "src/"
