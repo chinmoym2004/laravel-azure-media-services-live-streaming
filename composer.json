@@ -1,5 +1,5 @@
 {
-    "name": "unm/laravel4-azure",
+    "name": "chewcode/laravel4-azure",
     "description": "A laravel 4.1 service provider package that wraps the Windows Azure PHP SDK",
     "keywords"   : ["microsoft", "azure","windows azure","php","laravel"],
     "homepage"   : "https://github.com/undernewmanagement/laravel4-azure",
@@ -8,6 +8,11 @@
         {
             "name"     : "Under New Management",
             "homepage" : "http://github.com/undernewmanagement",
+            "role"     : "developer"
+        },
+        {
+            "name"     : "Ben Bowler",
+            "homepage" : "http://github.com/benbowler",
             "role"     : "developer"
         }
     ],
