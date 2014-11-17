@@ -31,7 +31,7 @@
         },
         {
             "type": "vcs",
-            "url": "https://github.com/chewcode/laravel4-azure"
+            "url": "https://github.com/chewcode/azure-sdk-for-php"
         }
     ],
     "autoload": {
