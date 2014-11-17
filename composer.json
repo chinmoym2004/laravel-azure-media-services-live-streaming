@@ -22,7 +22,7 @@
     "require": {
         "php": ">=5.3.0",
         "illuminate/support": "4.1.*",
-        "chewcode/windowsazure": "*"
+        "chewcode/azure-sdk-for-php": "*"
     },
     "repositories": [
         {
