@@ -32,7 +32,7 @@
         {
             "type": "vcs",
             "url": "https://github.com/chewcode/laravel4-azure"
-        },
+        }
     ],
     "autoload": {
         "classmap": [
