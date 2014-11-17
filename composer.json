@@ -28,7 +28,11 @@
         {
             "type": "pear",
             "url": "http://pear.php.net"
-        }
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/chewcode/laravel4-azure"
+        },
     ],
     "autoload": {
         "classmap": [
