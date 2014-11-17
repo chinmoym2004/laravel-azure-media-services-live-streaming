@@ -14,6 +14,7 @@ use WindowsAzure\Queue\QueueService;
 use WindowsAzure\Queue\QueueSettings;
 
 use WindowsAzure\Common\ServicesBuilder;
+use WindowsAzure\Common\ServiceException;
 
 class Azure {
 
@@ -39,7 +40,15 @@ class Azure {
         # I am just too lazy to figure it out at the moment.
         putenv("StorageConnectionString={$this->config["connection_string"]["storage"]}");
 
-        $this->cs = CloudConfigurationManager::getConnectionString("StorageConnectionString");
+        // dd($this->config);
+
+        // $this->cs = CloudConfigurationManager::getConnectionString("StorageConnectionString");
+        // $this->cs = $this->config['connection_string']['storage'];
+
+        // @todo: get these working
+        // $this->config is currently the included file for some reason??
+        $this->cs =  "DefaultEndpointsProtocol=https;AccountName=".getenv("AZURE_ACCOUNT_NAME").";AccountKey=".getenv("AZURE_PRIMARY_ACCESS_KEY");
+        $this->cssm =  "SubscriptionID=".getenv("AZURE_SUBSCRIPTION_ID").";CertificatePath=".getenv("AZURE_PATH_TO_CERTIFICATE")
     }
 
     /**
@@ -65,6 +74,7 @@ class Azure {
      */
     public function createBlobService()
     {
+        // dd($this->cs);
         return $this->servicesBuilder->createBlobService($this->cs);
     }
 
@@ -84,6 +94,42 @@ class Azure {
     {
         throw new Exception("Not implemented yet.");
 //        return $this->servicesBuilder->createServiceManagementService($this->config["connection_string"]["service_management"]);
+    }
+
+
+
+    /**
+     * @return \WindowsAzure\Common\WindowsAzure\ServiceManagement\Internal\IServiceManagement
+     */
+    public function listBlobs($container)
+    {
+        // throw new Exception("Not implemented yet.");
+       // return $this->servicesBuilder->listContainers($this->cs);
+
+
+
+        // Create blob REST proxy.
+        $blobRestProxy = ServicesBuilder::getInstance()->createBlobService($this->cs);
+
+
+        try {
+            // List blobs.
+            $blob_list = $blobRestProxy->listBlobs($container);
+            return $blob_list->getBlobs();
+
+            // foreach($blobs as $blob)
+            // {
+            //     echo $blob->getName().": ".$blob->getUrl()."<br />";
+            // }
+        }
+        catch(ServiceException $e){
+            // Handle exception based on error codes and messages.
+            // Error codes and messages are here: 
+            // http://msdn.microsoft.com/en-us/library/windowsazure/dd179439.aspx
+            $code = $e->getCode();
+            $error_message = $e->getMessage();
+            echo $code.": ".$error_message."<br />";
+        }
     }
 
 }
