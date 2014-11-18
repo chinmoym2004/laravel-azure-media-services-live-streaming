@@ -22,7 +22,9 @@
     "require": {
         "php": ">=5.3.0",
         "illuminate/support": "4.1.*",
-        "chewcode/windowsazure": "*"
+        "chewcode/windowsazure": "*",
+        "guzzle/guzzle": "3.*",
+        "pazure/guzzle-azure": "*"
     },
     "repositories": [
         {

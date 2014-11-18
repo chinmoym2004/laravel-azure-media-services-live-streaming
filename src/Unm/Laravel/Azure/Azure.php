@@ -16,6 +16,12 @@ use WindowsAzure\Queue\QueueSettings;
 use WindowsAzure\Common\ServicesBuilder;
 use WindowsAzure\Common\ServiceException;
 
+// require __DIR__ . '/../vendor/autoload.php';
+
+use Guzzle\Http\Client;
+use Guzzle\Http\Url;
+use Guzzle\Stream;
+
 class Azure {
 
     /**
@@ -48,7 +54,7 @@ class Azure {
         // @todo: get these working
         // $this->config is currently the included file for some reason??
         $this->cs =  "DefaultEndpointsProtocol=https;AccountName=".getenv("AZURE_ACCOUNT_NAME").";AccountKey=".getenv("AZURE_PRIMARY_ACCESS_KEY");
-        $this->cssm =  "SubscriptionID=".getenv("AZURE_SUBSCRIPTION_ID").";CertificatePath=".getenv("AZURE_PATH_TO_CERTIFICATE")
+        $this->cssm =  "SubscriptionID=".getenv("AZURE_SUBSCRIPTION_ID").";CertificatePath=".getenv("AZURE_PATH_TO_CERTIFICATE");
     }
 
     /**
@@ -104,9 +110,7 @@ class Azure {
     public function listBlobs($container)
     {
         // throw new Exception("Not implemented yet.");
-       // return $this->servicesBuilder->listContainers($this->cs);
-
-
+        // return $this->servicesBuilder->listContainers($this->cs);
 
         // Create blob REST proxy.
         $blobRestProxy = ServicesBuilder::getInstance()->createBlobService($this->cs);
@@ -115,12 +119,12 @@ class Azure {
         try {
             // List blobs.
             $blob_list = $blobRestProxy->listBlobs($container);
-            return $blob_list->getBlobs();
+            $blobs = $blob_list->getBlobs();
 
-            // foreach($blobs as $blob)
-            // {
-            //     echo $blob->getName().": ".$blob->getUrl()."<br />";
-            // }
+            foreach($blobs as $blob)
+            {
+                $return[] = $blob->getName().": ".$blob->getUrl();
+            }
         }
         catch(ServiceException $e){
             // Handle exception based on error codes and messages.
@@ -131,5 +135,63 @@ class Azure {
             echo $code.": ".$error_message."<br />";
         }
     }
+
+
+    ///////// Media Services Functions
+    /**
+     * @return \WindowsAzure\Common\WindowsAzure\BLAH\BLAH\IServiceManagement
+     */
+    public function listContent()
+    {
+
+        $client = new \Guzzle\Http\Client();
+        // Get results:
+
+        $request = $client->get('http://stream-fingerprint.chew.tv:8080');
+
+        // $request->setResponseBody('string');
+        // dd($response);
+        $response = $request->send();
+
+        dd( $response->getStatusCode() );
+        dd( $response->getBody() );
+
+        // throw new Exception("Not implemented yet.");
+        // return $this->servicesBuilder->listContainers($this->cs);
+
+        // Create blob REST proxy.
+        // $blobRestProxy = ServicesBuilder::getInstance()->createBlobService($this->cs);
+
+
+        // try {
+        //     // List blobs.
+        //     $blob_list = $blobRestProxy->listBlobs($container);
+        //     $blobs = $blob_list->getBlobs();
+
+        //     foreach($blobs as $blob)
+        //     {
+        //         $return[] = $blob->getName().": ".$blob->getUrl();
+        //     }
+        // }
+        // catch(ServiceException $e){
+        //     // Handle exception based on error codes and messages.
+        //     // Error codes and messages are here: 
+        //     // http://msdn.microsoft.com/en-us/library/windowsazure/dd179439.aspx
+        //     $code = $e->getCode();
+        //     $error_message = $e->getMessage();
+        //     echo $code.": ".$error_message."<br />";
+        // }
+    }
+
+    /**
+     * @return \WindowsAzure\Common\WindowsAzure\\BLAH\BLAH\'Internal\IServiceBus
+     */
+    public function createChannel($channelName)
+    {
+        throw new Exception("Not implemented yet.");
+//        return $this->servicesBuilder->createServiceBusService($this->config["connection_string"]["service_bus"]);
+    }
+
+
 
 }
