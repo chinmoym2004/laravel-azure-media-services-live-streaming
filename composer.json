@@ -24,7 +24,7 @@
         "illuminate/support": "4.1.*",
         "chewcode/windowsazure": "*",
         "guzzle/guzzle": "*",
-        "pazure/guzzle-azure": "*"
+        "chewcode/guzzle-azure": "*"
     },
     "repositories": [
         {
@@ -34,6 +34,10 @@
         {
             "type": "vcs",
             "url": "https://github.com/chewcode/azure-sdk-for-php"
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/chewcode/guzzle-azure"
         }
     ],
     "autoload": {
