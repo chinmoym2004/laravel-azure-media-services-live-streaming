@@ -1,30 +1,14 @@
 <?php
 
-namespace Chew\Laravel\Azure;
+namespace Chew\Laravel;
 
 use Illuminate\Support\Facades\Config;
-
-// use WindowsAzure\Common\CloudConfigurationManager;
-// use WindowsAzure\Common\Configuration;
-// use WindowsAzure\Table\TableService;
-// use WindowsAzure\Table\TableSettings;
-// use WindowsAzure\Blob\BlobService;
-// use WindowsAzure\Blob\BlobSettings;
-// use WindowsAzure\Queue\QueueService;
-// use WindowsAzure\Queue\QueueSettings;
-
-// use WindowsAzure\Common\ServicesBuilder;
-// use WindowsAzure\Common\ServiceException;
-
-// require __DIR__ . '/../vendor/autoload.php';
 
 use Guzzle\Http\Client;
 use Guzzle\Http\Url;
 use Guzzle\Stream;
 
-use Guzzle\Azure\AzureClient;
-
-class Azure {
+class AzureLive {
 
     /**
      * @var WindowsAzure\Common\ServicesBuilder
@@ -37,6 +21,11 @@ class Azure {
     private $config;
 
     /**
+     * @var
+     */
+    private $token;
+
+    /**
      * @param ServicesBuilder $servicesBuilder
      * @param $config
      */
@@ -46,7 +35,7 @@ class Azure {
 
         # Yes, the Azure SDK wants and environment variable. There is another way, but
         # I am just too lazy to figure it out at the moment.
-        putenv("StorageConnectionString={$this->config["connection_string"]["storage"]}");
+        // putenv("StorageConnectionString={$this->config["connection_string"]["storage"]}");
 
         // dd($this->config);
 
@@ -55,98 +44,121 @@ class Azure {
 
         // @todo: get these working
         // $this->config is currently the included file for some reason??
-        $this->cs =  "DefaultEndpointsProtocol=https;AccountName=".getenv("AZURE_ACCOUNT_NAME").";AccountKey=".getenv("AZURE_PRIMARY_ACCESS_KEY");
-        $this->cssm =  "SubscriptionID=".getenv("AZURE_SUBSCRIPTION_ID").";CertificatePath=".getenv("AZURE_PATH_TO_CERTIFICATE");
-    }
+        // $this->cs =  "DefaultEndpointsProtocol=https;AccountName=".getenv("AZURE_ACCOUNT_NAME").";AccountKey=".getenv("AZURE_PRIMARY_ACCESS_KEY");
+        // $this->cssm =  "SubscriptionID=".getenv("AZURE_SUBSCRIPTION_ID").";CertificatePath=".getenv("AZURE_PATH_TO_CERTIFICATE");
 
-    /**
-     * @return \WindowsAzure\Common\WindowsAzure\Table\Internal\ITable
-     */
-    public function createTableService()
-    {
-        throw new Exception("Not implemented yet.");
-//        return $this->servicesBuilder->createTableService($this->cs);
-    }
+        // Connect...
+        $client = new \Guzzle\Http\Client();
+        // Get results:
 
-    /**
-     * @return \WindowsAzure\Common\WindowsAzure\Queue\Internal\IQueue
-     */
-    public function createQueueService()
-    {
-        throw new Exception("Not implemented yet.");
-//        return $this->servicesBuilder->createQueueService($this->cs);
-    }
+        // @todo: this url should be dynamic?????
+        $request = $client->post('https://wamsprodglobal001acs.accesscontrol.windows.net/v2/OAuth2-13'); // https://wamsprodglobal001acs.accesscontrol.windows.net/v2/OAuth2-13
+        $request->addHeader('x-ms-version', '2.7');
+        $request->addHeader('Content-Type', 'application/x-www-form-urlencoded');
+        $request->setBody('grant_type=client_credentials&client_id='.getenv('AZURE_ACCOUNT_NAME').'&client_secret='.urlencode( getenv('AZURE_PRIMARY_MEDIA_SERVICE_ACCESS_KEY') ).'&scope=urn%3aWindowsAzureMediaServices');
 
-    /**
-     * @return \WindowsAzure\Common\WindowsAzure\Blob\Internal\IBlob
-     */
-    public function createBlobService()
-    {
-        // dd($this->cs);
-        return $this->servicesBuilder->createBlobService($this->cs);
-    }
+        // $request->setResponseBody('string');
+        // dd($response);
+        $response = $request->send();
 
-    /**
-     * @return \WindowsAzure\Common\WindowsAzure\ServiceBus\Internal\IServiceBus
-     */
-    public function createServiceBusService()
-    {
-        throw new Exception("Not implemented yet.");
-//        return $this->servicesBuilder->createServiceBusService($this->config["connection_string"]["service_bus"]);
-    }
+        // dd( $response->getHeaders() );
+        // dd( $response->getStatusCode() );
 
-    /**
-     * @return \WindowsAzure\Common\WindowsAzure\ServiceManagement\Internal\IServiceManagement
-     */
-    public function createServiceManagementService()
-    {
-        throw new Exception("Not implemented yet.");
-//        return $this->servicesBuilder->createServiceManagementService($this->config["connection_string"]["service_management"]);
-    }
+        ////// A
 
+        // echo $response->getStatusCode() . '<hr />';
+        // // "200"
+        // echo $response->getHeader('content-type') . '<hr />';
+        // // 'application/json; charset=utf8'
+        // echo $response->getBody() . '<hr />';
 
+        if($response->getStatusCode() == 200) {
+            // {"type":"User"...'
+            $response_array = $response->json();
 
-    /**
-     * @return \WindowsAzure\Common\WindowsAzure\ServiceManagement\Internal\IServiceManagement
-     */
-    public function listBlobs($container)
-    {
-        // throw new Exception("Not implemented yet.");
-        // return $this->servicesBuilder->listContainers($this->cs);
+            // dd($response_array);
 
-        // Create blob REST proxy.
-        $blobRestProxy = ServicesBuilder::getInstance()->createBlobService($this->cs);
+            // $token = $response->getBody();
 
+            // dd( $response->getBody() );
 
-        try {
-            // List blobs.
-            $blob_list = $blobRestProxy->listBlobs($container);
-            $blobs = $blob_list->getBlobs();
+            $this->token = $response_array['access_token'];
 
-            foreach($blobs as $blob)
-            {
-                $return[] = $blob->getName().": ".$blob->getUrl();
-            }
         }
-        catch(ServiceException $e){
-            // Handle exception based on error codes and messages.
-            // Error codes and messages are here: 
-            // http://msdn.microsoft.com/en-us/library/windowsazure/dd179439.aspx
-            $code = $e->getCode();
-            $error_message = $e->getMessage();
-            echo $code.": ".$error_message."<br />";
-        }
+
+        // echo '<hr />';
+        // Outputs the JSON decoded data
+        // dd( $response->getBody() );
+
+        // echo '<hr />';
+
+
+        // dd( $token );
+
+
+    }
+
+    ///////// Media Services Live Streaming Functions
+
+    
+    /**
+     * CreateChannels
+     */
+    public function CreateChannel() {
+
+    }
+    
+    /**
+     * StartChannels
+     */
+    public function StartChannels() {
+
+    }
+    
+    /**
+     * StopChannels
+     */
+    public function StopChannels() {
+
+    }
+    
+    /**
+     * ListChannels
+     */
+    public function ListChannels() {
+
+    }
+    
+    /**
+     * ResetChannels
+     */
+    public function ResetChannels() {
+
+    }
+    
+    /**
+     * UpdateChannels
+     */
+    public function UpdateChannels() {
+
+    }
+    
+    /**
+     * DeleteChannels
+     */
+    public function DeleteChannels() {
+
     }
 
 
-    ///////// Media Services Functions
+
+
+
     /**
      * @return \WindowsAzure\Common\WindowsAzure\BLAH\BLAH\IServiceManagement
      */
-    public function listContent()
+    public static function listContent()
     {
-
-// c1c87568-e292-4506-898a-ef0d6cee3227.pem
 
         // Connect...
         $client = new \Guzzle\Http\Client();

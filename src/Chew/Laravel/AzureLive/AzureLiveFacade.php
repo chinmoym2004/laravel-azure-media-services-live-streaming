@@ -1,13 +1,13 @@
 <?php
 
-namespace Chew\Laravel\Azure;
+namespace Chew\Laravel;
 
 use Illuminate\Support\Facades\Facade;
 
 /**
  * Facade for the Azure service
  */
-class AzureFacade extends Facade
+class AzureLive extends Facade
 {
     /**
      * Get the registered name of the component.
@@ -16,6 +16,6 @@ class AzureFacade extends Facade
      */
     protected static function getFacadeAccessor()
     {
-        return 'azure';
+        return 'azurelive';
     }
 }

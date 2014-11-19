@@ -35,7 +35,7 @@
             "src/"
         ],
         "psr-0": {
-            "Chew\\Laravel\\Azure": "src/"
+            "Chew\\Laravel\\AzureLive": "src/"
         }
     },
     "minimum-stability": "dev"
