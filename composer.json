@@ -22,22 +22,12 @@
     "require": {
         "php": ">=5.3.0",
         "illuminate/support": "4.1.*",
-        "chewcode/windowsazure": "*",
         "guzzle/guzzle": "*",
-        "chewcode/guzzle-azure": "*"
     },
     "repositories": [
         {
             "type": "pear",
             "url": "http://pear.php.net"
-        },
-        {
-            "type": "vcs",
-            "url": "https://github.com/chewcode/azure-sdk-for-php"
-        },
-        {
-            "type": "vcs",
-            "url": "https://github.com/chewcode/guzzle-azure"
         }
     ],
     "autoload": {
