@@ -9,6 +9,13 @@ To install with Composer add the following to your require section.
 
 	"chewcode/laravel-azure-media-services-live-streaming": "*",
 
+In the app.php config file you need to add the following to the providers array:
+
+	'Chew\Laravel\Azure\AzureServiceProvider',
+
+and the following to the aliases:
+
+	'AzureLive' => 'Chew\Laravel\Azure\AzureFacade',
 
 ## Usage
 
