@@ -1,6 +1,6 @@
 {
-    "name": "chewcode/laravel4-azure",
-    "description": "A laravel 4.1 service provider package that wraps the Windows Azure PHP SDK",
+    "name": "chewcode/laravel-azure-media-services-live-streaming",
+    "description": "A laravel 4.1 service provider package that uses guzzle to access the Preview Live Streaming APIs that currently aren't in the native sdk.",
     "keywords"   : ["microsoft", "azure","windows azure","php","laravel"],
     "homepage"   : "https://github.com/undernewmanagement/laravel4-azure",
     "license"    : "MIT",
