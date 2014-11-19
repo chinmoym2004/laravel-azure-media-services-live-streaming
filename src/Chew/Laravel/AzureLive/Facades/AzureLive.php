@@ -1,6 +1,6 @@
 <?php
 
-namespace Chew\Laravel;
+namespace Chew\Laravel\Facades;
 
 use Illuminate\Support\Facades\Facade;
 
