@@ -1,6 +1,6 @@
 <?php
 
-namespace Unm\Laravel\Azure;
+namespace Chew\Laravel\Azure;
 
 use Illuminate\Support\Facades\Facade;
 

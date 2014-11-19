@@ -2,7 +2,7 @@
     "name": "chewcode/laravel-azure-media-services-live-streaming",
     "description": "A laravel 4.1 service provider package that uses guzzle to access the Preview Live Streaming APIs that currently aren't in the native sdk.",
     "keywords"   : ["microsoft", "azure","windows azure","php","laravel"],
-    "homepage"   : "https://github.com/undernewmanagement/laravel4-azure",
+    "homepage"   : "https://github.com/chewcode/laravel-azure-media-services-live-streaming",
     "license"    : "MIT",
     "authors": [
         {
@@ -35,7 +35,7 @@
             "src/"
         ],
         "psr-0": {
-            "Unm\\Laravel\\Azure": "src/"
+            "Chew\\Laravel\\Azure": "src/"
         }
     },
     "minimum-stability": "dev"

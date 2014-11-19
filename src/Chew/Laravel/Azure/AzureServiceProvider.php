@@ -1,4 +1,4 @@
-<?php namespace Unm\Laravel\Azure;
+<?php namespace Chew\Laravel\Azure;
 
 use Illuminate\Support\ServiceProvider;
 use WindowsAzure\Common\ServicesBuilder;
@@ -38,7 +38,7 @@ class AzureServiceProvider extends ServiceProvider {
 //        $this->app->booting(function()
 //        {
 //            $loader = \Illuminate\Foundation\AliasLoader::getInstance();
-//            $loader->alias('azure', 'Unm\Laravel\Azure\AzureFacade');
+//            $loader->alias('azure', 'Chew\Laravel\Azure\AzureFacade');
 //        });
     }
 

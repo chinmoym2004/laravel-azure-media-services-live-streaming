@@ -1,20 +1,20 @@
 <?php
 
-namespace Unm\Laravel\Azure;
+namespace Chew\Laravel\Azure;
 
 use Illuminate\Support\Facades\Config;
 
-use WindowsAzure\Common\CloudConfigurationManager;
-use WindowsAzure\Common\Configuration;
-use WindowsAzure\Table\TableService;
-use WindowsAzure\Table\TableSettings;
-use WindowsAzure\Blob\BlobService;
-use WindowsAzure\Blob\BlobSettings;
-use WindowsAzure\Queue\QueueService;
-use WindowsAzure\Queue\QueueSettings;
+// use WindowsAzure\Common\CloudConfigurationManager;
+// use WindowsAzure\Common\Configuration;
+// use WindowsAzure\Table\TableService;
+// use WindowsAzure\Table\TableSettings;
+// use WindowsAzure\Blob\BlobService;
+// use WindowsAzure\Blob\BlobSettings;
+// use WindowsAzure\Queue\QueueService;
+// use WindowsAzure\Queue\QueueSettings;
 
-use WindowsAzure\Common\ServicesBuilder;
-use WindowsAzure\Common\ServiceException;
+// use WindowsAzure\Common\ServicesBuilder;
+// use WindowsAzure\Common\ServiceException;
 
 // require __DIR__ . '/../vendor/autoload.php';
 
