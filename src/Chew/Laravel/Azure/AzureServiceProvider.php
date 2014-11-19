@@ -1,7 +1,7 @@
 <?php namespace Chew\Laravel\Azure;
 
 use Illuminate\Support\ServiceProvider;
-use WindowsAzure\Common\ServicesBuilder;
+// use WindowsAzure\Common\ServicesBuilder;
 
 class AzureServiceProvider extends ServiceProvider {
 
@@ -19,7 +19,7 @@ class AzureServiceProvider extends ServiceProvider {
 	 */
 	public function boot()
 	{
-		$this->package('unm/laravel4-azure', 'azure', __DIR__. '/../../..');
+		$this->package('chewcode/laravel-azure-media-services-live-streaming', 'azure', __DIR__. '/../../..');
 	}
 
 	/**
@@ -30,9 +30,9 @@ class AzureServiceProvider extends ServiceProvider {
 	public function register()
 	{
 
-        $this->app->bind('azure', function($app) {
-            return new Azure(ServicesBuilder::getInstance(), $app['config']->get('azure::config'));
-        });
+        // $this->app->bind('azure', function($app) {
+        //     return new Azure(ServicesBuilder::getInstance(), $app['config']->get('azure::config'));
+        // });
 
         # Shortcut so developers don't need to add an Alias in app/config/app.php
 //        $this->app->booting(function()
